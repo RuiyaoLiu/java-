@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace对应接口的全类名 -->
+<mapper namespace="com.sp.dao.UserDao">
+    <select id="findAll" resultType="com.sp.entity.User">
+        select * from users order by id offset #{0} limit #{1} 
+    </select>
+    
+    <select id="findById" resultType="com.sp.entity.User">
+        select * from users where id = #{id}
+    </select>
+    
+    <delete id="deleteById" parameterType="int">
+        delete from users where id = #{id1}
+    </delete>
+    
+    <insert id="addUser" parameterType="com.sp.entity.User">
+        insert into users(name,job) values (#{name},#{job})
+    </insert>
+    
+    <update id="updateUser" parameterType="com.sp.entity.User">
+        update users set name=#{name},job=#{job} where id=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace对应接口的全类名 -->
+<mapper namespace="com.sp.dao.Line2Dao">
+    <select id="findAll" resultType="com.sp.entity.Line2">
+        select * from longchengline offset #{0} limit #{1} 
+    </select>
+    <select id="findCount" resultType="int">
+        select count(*) from longchengline where type=#{0} 
+    </select>
+    <select id="findLength" resultType="float">
+        select sum(st_length_spheroid(geom,'SPHEROID["WGS 84",6378137,298.257223563]')) from longchengline where TYPE=#{0}
+    </select>
+    <select id="findType" resultType="float">
+        select sum(st_length_spheroid(l.geom,'SPHEROID["WGS 84",6378137,298.257223563]')) from longchengline l,boundary b where l.TYPE=#{0}
+        and st_intersects(l.geom,b.geom)and b.area=#{1}
+    </select>
+</mapper>

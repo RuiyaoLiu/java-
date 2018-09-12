@@ -6,7 +6,6 @@
     xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-
     <!-- 配置数据源 -->
     <bean class="org.apache.commons.dbcp2.BasicDataSource"
         id="dataSource">
@@ -15,19 +14,17 @@
         <property name="username" value="postLiu"></property>
         <property name="password" value="123456"></property>
     </bean>
-    
     <!-- 配置SqlSessionFaction -->
     <bean class="org.mybatis.spring.SqlSessionFactoryBean"
         id="sqlSessionFactory">
-        <property name="dataSource" ref="dataSource"></property>    
+        <property name="dataSource" ref="dataSource"></property>
         <property name="mapperLocations" value="com/sp/entity/*.xml"></property>
     </bean>
-    
     <!-- 配置 mybatis 注解 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.sp.dao"></property>
         <property name="annotationClass" value="com.sp.annotation.MyBatisRepository"></property>
     </bean>
-
-        
+    <!-- 配置 dao 层自动扫描包 -->
+    <context:component-scan base-package="com.sp.interf"></context:component-scan>    
 </beans>

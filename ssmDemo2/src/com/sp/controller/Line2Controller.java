@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sp.dao.Line2Dao;
 import com.sp.entity.Line2;
 import net.sf.json.JSONObject;
-
 @Controller
 @RequestMapping("/line2")
 public class Line2Controller {
@@ -24,7 +23,7 @@ public class Line2Controller {
     @ResponseBody
     public String  list(@RequestParam("page") Integer page,
     	@RequestParam("results") Integer results
-         ) throws JsonProcessingException{    	
+         ) throws JsonProcessingException{
     	System.out.println("page:"+page);
     	System.out.println("results:"+results);
     	
@@ -32,7 +31,7 @@ public class Line2Controller {
     	JSONObject obj=new JSONObject();
     	List<Line2> list = dao.findAll((page-1)*results,results);
     	//计算全部得个数
-    	List<Line2> list2 = dao.findAll(0,null);  
+    	List<Line2> list2 = dao.findAll(0,null);
     	String str = null;
     	obj.put("total", list2.size());
     	obj.put("data", mapper.writeValueAsString(list));
@@ -118,5 +117,16 @@ public class Line2Controller {
 //    	System.out.println(str);
         return str;
     }    
-    
+    //管线json数据的获取
+    @RequestMapping(value="/jsonGet",produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String  list3() throws JsonProcessingException{ 
+    	System.out.println("##############获取json数据#############");
+    	JSONObject obj=new JSONObject();
+    	String str0=dao.getJsonLine();    	  	
+    	obj.put("data", str0);
+    	String str=obj.toString();
+    	System.out.println(str);
+        return str;
+    }  
 }

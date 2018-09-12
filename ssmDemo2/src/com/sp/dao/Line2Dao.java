@@ -9,4 +9,6 @@ public interface Line2Dao {
     int findCount(String str);
     float findLength(String str);
     float findType(String str,String str1);
+    //json线性数据获取
+    String getJsonLine();
 }
